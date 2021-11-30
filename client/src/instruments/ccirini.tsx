@@ -1,20 +1,13 @@
 // 3rd party library imports
 import * as Tone from 'tone';
-//import { PolySynthOptions } from 'tone';
-import classNames from 'classnames';
 import { List, Range } from 'immutable';
-import React from 'react';
 
 // project imports
 import { Instrument, InstrumentProps } from '../Instruments';
-import { findByLabelText } from '@testing-library/react';
-import { Frequency, Oscillator, PolySynth, Synth } from 'tone';
-import { NotSent16 } from '@carbon/icons-react';
 
 /** ------------------------------------------------------------------------ **
  * Contains implementation of components for Guitar.
  ** ------------------------------------------------------------------------ */
-//Tone.Gain();
 interface GuitarProps {
   note: string; // C, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B
   duration?: string;
@@ -23,16 +16,18 @@ interface GuitarProps {
   octave: number;
   stringName?: string;
   stringIndex: number;
-  transpositionaOffset: number; //Transpositional offset
-  activeNotesProp: string[];
-  fretsProp: List<{note: string,idx:number}>;
+  transpositionaOffset: number; // Transpositional offset
+  activeNotesProp: string[]; // Polyphonic note output
+  fretsProp: List<{note: string,idx:number}>; 
 }
 
+// Polysynth setup for a unique Guitar sound
 const limiter = new Tone.Limiter(0).toDestination();
 const filter = new Tone.FeedbackCombFilter(1/1000,.7).toDestination();
 let pSynth = new Tone.PolySynth();
 pSynth.maxPolyphony = 7;
 pSynth.toDestination();
+
 pSynth.set({
 	oscillator: {
 		type: "fmsine5"
@@ -44,12 +39,11 @@ pSynth.set({
 	},
     volume: -15,
 });
+
 pSynth.connect(filter);
 pSynth.connect(limiter);
 
 export function GuitarString({
-  note,
-  synth,
   stringName,
   stringIndex,
   transpositionaOffset,
@@ -132,6 +126,7 @@ function Guitar({ synth, setSynth }: InstrumentProps): JSX.Element {
     { note: 'D', idx: 10 },
     { note: 'Eb', idx: 11 },
   ]);
+
   const guitarStrings = List([
     { note: 'E', octave: 4, offset: 0, str: 1},
     { note: 'B', octave: 4, offset: -5, str: 2},
@@ -142,49 +137,31 @@ function Guitar({ synth, setSynth }: InstrumentProps): JSX.Element {
   ]);
 
   let activeNotes: string[] = ['','','','','',''];
-  
-  const setOscillator = (newType: Tone.ToneOscillatorType) => {
-    setSynth(oldSynth => {
-      oldSynth.disconnect();
-      return new Tone.Synth({
-        oscillator: { type: newType } as Tone.OmniOscillatorOptions,
-      }).toDestination();
-    });
-  };
-
-  const oscillators: List<OscillatorType> = List([
-    'sine',
-    'sawtooth',
-    'square',
-    'triangle',
-    'fmsine',
-    'fmsawtooth',
-    'fmtriangle',
-    'amsine',
-    'amsawtooth',
-    'amtriangle',
-  ]) as List<OscillatorType>;
 
   function strum(){
     pSynth.releaseAll();
+    Tone.Transport.cancel();
     pSynth.unsync();
+
     let temp = activeNotes.filter(n=>n!=='')
     let triggeredNotes: string[] = temp.map(x=>Tone.Frequency(x).toNote())
+
     pSynth.triggerAttackRelease(triggeredNotes,.6);
-    console.log(triggeredNotes.toString());
   }
 
   function pluck(){
     pSynth.releaseAll();
+    Tone.Transport.cancel();
     Tone.Transport.stop();
+    pSynth.sync();
+
     let temp = activeNotes.filter(n=>n!=='')
     let triggeredNotes: string[] = temp.map(x=>Tone.Frequency(x).toNote())
-    pSynth.sync();
+
     for(let i = 0; i < triggeredNotes.length;i++){
         pSynth.triggerAttackRelease(triggeredNotes[i],.3,triggeredNotes.length - i);
     }
     Tone.Transport.start();
-    console.log(triggeredNotes.toString());
   }
 
 
@@ -216,7 +193,6 @@ function Guitar({ synth, setSynth }: InstrumentProps): JSX.Element {
         </div>
         </div>
     </div>
-    //end
   );
 }
 
