@@ -3,7 +3,7 @@ import * as Tone from 'tone';
 import { List, Range } from 'immutable';
 
 // project imports
-import { Instrument, InstrumentProps } from '../Instruments';
+import { Instrument} from '../Instruments';
 
 /** ------------------------------------------------------------------------ **
  * Contains implementation of components for Guitar.
@@ -91,7 +91,7 @@ function fretMarker(numberOfFrets: number){
     <text style={{
         paddingRight: 10,
         fontSize: 12,
-        }}>Mute</text>
+    }}>Mute</text>
     <text style={{
         paddingRight: 19,
         fontSize: 12
@@ -111,7 +111,7 @@ function fretMarker(numberOfFrets: number){
 }
 
 
-function Guitar({ synth, setSynth }: InstrumentProps): JSX.Element {
+function Guitar(): JSX.Element {
   const frets = List([
     { note: 'E', idx: 0 },
     { note: 'F', idx: 1 },

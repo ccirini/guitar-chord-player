@@ -1,7 +1,6 @@
 // 3rd party library imports
 import P5 from 'p5';
 import * as Tone from 'tone';
-import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
 
 import { Visualizer } from '../Visualizers';
 
@@ -32,7 +31,7 @@ export const SpinAndTrip = new Visualizer(
         
         //bubble particles
         let point = p5.random(-height,height);
-        if(amplitude!=0){
+        if(amplitude!==0){
             p5.circle(point,point,(100*amplitude));
         }
         
