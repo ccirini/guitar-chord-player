@@ -4,7 +4,7 @@ import * as Tone from 'tone';
 
 import { Visualizer } from '../Visualizers';
 
-export const SpinAndTrip = new Visualizer(
+export const ccirini = new Visualizer(
   'SpinAndTrip',
   (p5: P5, analyzer: Tone.Analyser) => {
     const width = window.innerWidth;
