@@ -16,7 +16,7 @@ interface GuitarProps {
   octave: number;
   stringName?: string;
   stringIndex: number;
-  transpositionaOffset: number; // Transpositional offset
+  transpositionalOffset: number; // Transpositional offset
   activeNotesProp: string[]; // Polyphonic note output
   fretsProp: List<{note: string,idx:number}>; 
 }
@@ -25,17 +25,19 @@ interface GuitarProps {
 const limiter = new Tone.Limiter(0).toDestination();
 const filter = new Tone.FeedbackCombFilter(1/1000,.7).toDestination();
 let pSynth = new Tone.PolySynth();
+
+
 pSynth.maxPolyphony = 7;
 pSynth.toDestination();
 
 pSynth.set({
 	oscillator: {
-		type: "fmsine5"
+		type: "fmsine6"
 	},
 	envelope: {
 		attack: 0.01,
-        decay: .3,
-        sustain: .3,
+        decay: .1,
+        sustain: .2,
 	},
     volume: -15,
 });
@@ -43,10 +45,11 @@ pSynth.set({
 pSynth.connect(filter);
 pSynth.connect(limiter);
 
+
 export function GuitarString({
   stringName,
   stringIndex,
-  transpositionaOffset,
+  transpositionalOffset,
   activeNotesProp,
   fretsProp,
   octave,
@@ -61,12 +64,12 @@ export function GuitarString({
         <div className ='flex w1'>
             <text className='flex-auto f3'>{stringName}</text>
         </div>
-    {Range(octave+1, octave+3).map(currentOctave =>
-        fretsProp.map(key => {
-            let note = `${key.note}${currentOctave}`;
+    {Range(octave, octave+2).map(currentOctave =>
+        fretsProp.map(fret => {
+            let note = `${fret.note}${currentOctave}`;
             let fretStyle: string = 'inline-flex bg-light-yellow br b--silver pa1';
-            note = Tone.Midi(note).transpose(transpositionaOffset).toNote();
-            if(currentOctave === octave+1 && key.note === 'E' ){
+            note = Tone.Midi(note).transpose(transpositionalOffset).toNote();
+            if(currentOctave === octave && fret.note === 'C' ){
                 fretStyle = 'inline-flex br b--washed-yellow bw3 pa1';
             }
             return (
@@ -113,27 +116,27 @@ function fretMarker(numberOfFrets: number){
 
 function Guitar(): JSX.Element {
   const frets = List([
-    { note: 'E', idx: 0 },
-    { note: 'F', idx: 1 },
-    { note: 'Gb', idx: 2 },
-    { note: 'G', idx: 3 },
-    { note: 'Ab', idx: 4 },
+    { note: 'C', idx: 0 },
+    { note: 'Db', idx: 0.5 },
+    { note: 'D', idx: 1 },
+    { note: 'Eb', idx: 1.5 },
+    { note: 'E', idx: 2 },
+    { note: 'F', idx: 3 },
+    { note: 'Gb', idx: 3.5 },
+    { note: 'G', idx: 4 },
+    { note: 'Ab', idx: 4.5 },
     { note: 'A', idx: 5 },
-    { note: 'Bb', idx: 6 },
-    { note: 'B', idx: 7 },
-    { note: 'C', idx: 8 },
-    { note: 'Db', idx: 9 },
-    { note: 'D', idx: 10 },
-    { note: 'Eb', idx: 11 },
+    { note: 'Bb', idx: 5.5 },
+    { note: 'B', idx: 6 },
   ]);
 
   const guitarStrings = List([
-    { note: 'E', octave: 4, offset: 0, str: 1},
-    { note: 'B', octave: 4, offset: -5, str: 2},
-    { note: 'G', octave: 3, offset: 3, str: 3},
-    { note: 'D', octave: 3, offset: -2, str: 4},
-    { note: 'A', octave: 2, offset: 5, str: 5},
-    { note: 'E', octave: 2, offset: 0, str: 6},
+    { note: 'E', octave: 4, offset: 4, str: 1},
+    { note: 'B', octave: 3, offset: 11, str: 2},
+    { note: 'G', octave: 3, offset: 7, str: 3},
+    { note: 'D', octave: 3, offset: 2, str: 4},
+    { note: 'A', octave: 2, offset: 9, str: 5},
+    { note: 'E', octave: 2, offset: 4, str: 6},
   ]);
 
   let activeNotes: string[] = ['','','','','',''];
@@ -159,8 +162,9 @@ function Guitar(): JSX.Element {
     let triggeredNotes: string[] = temp.map(x=>Tone.Frequency(x).toNote())
 
     for(let i = 0; i < triggeredNotes.length;i++){
-        pSynth.triggerAttackRelease(triggeredNotes[i],.3,triggeredNotes.length - i);
+        pSynth.triggerAttackRelease(triggeredNotes[i],.3,(triggeredNotes.length - (i+1))/2);
     }
+
     Tone.Transport.start();
   }
 
@@ -176,7 +180,7 @@ function Guitar(): JSX.Element {
                         note={str.note}
                         synth={pSynth}
                         octave={str.octave}
-                        transpositionaOffset={str.offset}
+                        transpositionalOffset={str.offset}
                         stringName = {str.note}
                         activeNotesProp = {activeNotes}
                         fretsProp = {frets}
@@ -185,11 +189,11 @@ function Guitar(): JSX.Element {
                 </div>
                 )
             })}
-        <div onMouseDown={()=> strum()}>
-            <button>strum</button>
+        <div className='pa2' onMouseDown={()=> strum()}>
+            <button className='w-20'>Strum</button>
         </div>
-        <div onMouseDown={()=> pluck()}>
-            <button>pluck</button>
+        <div className='pa2' onMouseDown={()=> pluck()}>
+            <button className='w-20'>Arpeggiate</button>
         </div>
         </div>
     </div>
@@ -197,4 +201,3 @@ function Guitar(): JSX.Element {
 }
 
 export const GuitarInstrument = new Instrument('ccirini', Guitar);
-
