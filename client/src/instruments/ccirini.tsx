@@ -3,7 +3,8 @@ import * as Tone from 'tone';
 import { List, Range } from 'immutable';
 
 // project imports
-import { Instrument} from '../Instruments';
+import { Instrument, InstrumentProps } from '../Instruments';
+import { PolySynth } from 'tone';
 
 /** ------------------------------------------------------------------------ **
  * Contains implementation of components for Guitar.
@@ -25,7 +26,6 @@ interface GuitarProps {
 const limiter = new Tone.Limiter(0).toDestination();
 const filter = new Tone.FeedbackCombFilter(1/1000,.7).toDestination();
 let pSynth = new Tone.PolySynth();
-
 
 pSynth.maxPolyphony = 7;
 pSynth.toDestination();
@@ -114,7 +114,7 @@ function fretMarker(numberOfFrets: number){
 }
 
 
-function Guitar(): JSX.Element {
+function Guitar({ synth, setSynth }: InstrumentProps): JSX.Element {
   const frets = List([
     { note: 'C', idx: 0 },
     { note: 'Db', idx: 0.5 },
@@ -168,6 +168,17 @@ function Guitar(): JSX.Element {
     Tone.Transport.start();
   }
 
+  const setOscillator = () => {
+    setSynth(oldSynth => {
+      oldSynth.disconnect();
+      
+      return new Tone.Synth(
+        pSynth.get()
+      ).toDestination();
+    });
+  };
+
+  //setOscillator();
 
   return (
     <div className='flex-column'>
@@ -189,11 +200,16 @@ function Guitar(): JSX.Element {
                 </div>
                 )
             })}
-        <div className='pa2' onMouseDown={()=> strum()}>
-            <button className='w-20'>Strum</button>
+        <div className='w-100 tc'>
+        <div className='dib w-30 pa2' onMouseDown={()=> strum()}>
+            <button className='w-100 bg-light-silver'>Strum</button>
         </div>
-        <div className='pa2' onMouseDown={()=> pluck()}>
-            <button className='w-20'>Arpeggiate</button>
+        <div className='dib w-30 pa2' onMouseDown={()=> pluck()}>
+            <button className='w-100 bg-light-silver'>Arpeggiate</button>
+        </div>
+        <div className='dib w-30 pa2' onMouseDown={()=> setOscillator()}>
+            <button className='w-100 bg-light-silver'>Set as active instrument</button>
+        </div>
         </div>
         </div>
     </div>
