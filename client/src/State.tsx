@@ -5,12 +5,12 @@ import { List, Map } from 'immutable';
 import { PianoInstrument } from './instruments/Piano';
 import { WaveformVisualizer } from './visualizers/Waveform';
 
-
 import { Drumkit } from './instruments/Rig06';
 import { MiniTron } from './visualizers/Rig06';
 
 import { GuitarInstrument } from './instruments/ccirini';
 import { ccirini} from './visualizers/ccirini';
+import { Vis} from './visualizers/yujarvis08';
 
 
 import { XylophoneInstrument } from './instruments/yujarvis08';
@@ -28,7 +28,6 @@ import { Vis } from './visualizers/yujarvis08';
  * 'visualizer': Visualizer
  */
 export type AppState = Map<string, any>;
-
 const instruments = List([PianoInstrument, Drumkit, GuitarInstrument, XylophoneInstrument]);
 const visualizers = List([WaveformVisualizer, MiniTron, ccirini, Vis]);
 export const defaultState: AppState = Map<string, any>({

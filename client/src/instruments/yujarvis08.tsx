@@ -10,12 +10,12 @@ interface XylophoneKeyProps {
   octave: number;
 }
 
-let synth = new Tone.AMSynth().toDestination();
+let asynth = new Tone.AMSynth().toDestination();
 const filter = new Tone.Filter("C6").toDestination();
 const freeverb = new Tone.Freeverb().toDestination();
 freeverb.dampening = 160;
 
-synth.set({
+asynth.set({
 
 	envelope: {
 		attack: 0.01,
@@ -24,10 +24,10 @@ synth.set({
     volume: 5,
 });
 
-synth.connect(freeverb);
-synth.connect(filter);
+asynth.connect(freeverb);
+asynth.connect(filter);
 
-synth.harmonicity.value = 32;
+asynth.harmonicity.value = 32;
 
 let randomColor = "#" + (((1 << 24) * Math.random()) | 0).toString(16);
 
@@ -71,7 +71,7 @@ export function XylophoneKey({
   );
 }
 
-function Xylophone(): JSX.Element {
+function Xylophone({ synth, setSynth }: InstrumentProps): JSX.Element {
   const keys = List([
     { note: 'C', idx: 4 },
     { note: 'D', idx: 5 },
@@ -82,6 +82,16 @@ function Xylophone(): JSX.Element {
     { note: 'B', idx: 10 },
   ]);
 
+  const setOscillator = () => {
+    setSynth(oldSynth => {
+      oldSynth.disconnect();
+      
+      return new Tone.Synth(
+        synth.get()
+      ).toDestination();
+    });
+  };
+
   return (
     <div className="pv4">
       <div className="relative dib h4 w-100 ml4">
@@ -91,13 +101,16 @@ function Xylophone(): JSX.Element {
             return (
               <XylophoneKey
                 note={note}
-                synth={synth}
+                synth={asynth}
                 octave={octave}
               />
             );
           }),
         )}
       </div>
+      <div className='dib w-30 pa2' onMouseDown={()=> setOscillator()}>
+            <button className='w-100 bg-light-silver'>Set as active instrument</button>
+        </div>
     </div>
   );
 }
