@@ -5,6 +5,7 @@ import * as Tone from 'tone';
 // project imports
 import { DispatchAction } from './Reducer';
 import { AppState } from './State';
+import './index.css'
 
 /** ------------------------------------------------------------------------ **
  * Contains implementation of an Instruments.
@@ -32,10 +33,10 @@ function TopNav({ name }: { name: string }) {
   return (
     <div
       className={
-        'w-100 h3 bb b--light-gray flex justify-between items-center ph4'
+        'w-100 h3 bb b--light-red flex justify-between items-center ph4'
       }
     >
-      <div>{name}</div>
+      <div><h3>{name}</h3></div>
     </div>
   );
 }
@@ -89,10 +90,10 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
   }, [notes, synth, dispatch]);
 
   return (
-    <div>
-      <TopNav name={instrument.name} />
+    <div className={'top-bar'}>
+      <TopNav name={instrument.name} />	
       <div
-        className={'bg-white absolute right-0 left-0'}
+        className={'instrument-canvas'}
         style={{ top: '4rem' }}
       >
         <InstrumentComponent

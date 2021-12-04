@@ -16,6 +16,31 @@ code {
   box-sizing: border-box;
 }
 
+.top-bar{
+  color: aliceblue;
+  background-color: rgb(101, 18, 209);
+  position: relative;
+
+}
+
+
+.instrument-canvas{
+  background-color: rgb(220, 210, 224);
+
+  min-height: 40vh; /* set height as you need */
+  display: flex;
+  flex-direction: column;
+}
+
+.pl4{
+  display: flex;
+  position: absolute;
+  color: rgb(29, 27, 26);
+  bottom: 2%;
+  left: 7.5%;
+}
+
+
 html, body, #root {
   height: 100%;
   width: 100%;
@@ -89,3 +114,5 @@ html, body, #root {
   from {transform:rotate(0deg);}
   to {transform:rotate(360deg);}
 }
+
+

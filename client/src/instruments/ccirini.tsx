@@ -114,6 +114,10 @@ function fretMarker(numberOfFrets: number){
 }
 
 
+
+
+
+
 function Guitar({ synth, setSynth }: InstrumentProps): JSX.Element {
   const frets = List([
     { note: 'C', idx: 0 },
@@ -168,6 +172,8 @@ function Guitar({ synth, setSynth }: InstrumentProps): JSX.Element {
     Tone.Transport.start();
   }
 
+
+  
   const setOscillator = () => {
     setSynth(oldSynth => {
       oldSynth.disconnect();
