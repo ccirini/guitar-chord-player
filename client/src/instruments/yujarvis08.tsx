@@ -19,7 +19,7 @@ asynth.set({
 
 	envelope: {
 		attack: 0.01,
-    sustain: 0.2,
+        sustain: 1,
 	},
     volume: 5,
 });
@@ -71,7 +71,7 @@ export function XylophoneKey({
   );
 }
 
-function Xylophone({ setSynth }: InstrumentProps): JSX.Element {
+function Xylophone({ synth, setSynth }: InstrumentProps): JSX.Element {
   const keys = List([
     { note: 'C', idx: 4 },
     { note: 'D', idx: 5 },
@@ -85,9 +85,9 @@ function Xylophone({ setSynth }: InstrumentProps): JSX.Element {
   const setOscillator = () => {
     setSynth(oldSynth => {
       oldSynth.disconnect();
-
+      
       return new Tone.Synth(
-        asynth.get()
+        synth.get()
       ).toDestination();
     });
   };

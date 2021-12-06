@@ -53,7 +53,7 @@ export function PianoKey({
     ></div>
   );
 }
-
+//-------------------------------------------------------------------------------------
 // eslint-disable-next-line
 function PianoKeyWithoutJSX({
   note,
@@ -84,15 +84,15 @@ function PianoKeyWithoutJSX({
     },
     [],
   );
-}
+}//-------------------------------------------------------------------------------------
 
 function PianoType({ title, onClick, active }: any): JSX.Element {
   return (
     <div
       onClick={onClick}
       className={classNames('dim pointer ph2 pv1 ba mr2 br1 fw7 bw1', {
-        'b--black black': active,
-        'gray b--light-gray': !active,
+        'b--black purple': active,
+        'gray b--light-black': !active,
       })}
     >
       {title}
@@ -114,6 +114,19 @@ function Piano({ synth, setSynth }: InstrumentProps): JSX.Element {
     { note: 'A', idx: 5 },
     { note: 'Bb', idx: 5.5 },
     { note: 'B', idx: 6 },
+  ]);
+
+
+  const drumSound = List([
+    { note: require("../sounds/boom.wav").default},
+    { note: require("../sounds/clap.wav").default},
+    { note: require("../sounds/hihat.wav").default},
+    { note: require("../sounds/kick.wav").default},
+    { note: require("../sounds/openhat.wav").default },
+    { note: require("../sounds/ride.wav").default},
+    { note: require("../sounds/snare.wav").default },
+    { note: require("../sounds/tom.wav").default},
+
   ]);
 
   const setOscillator = (newType: Tone.ToneOscillatorType) => {
@@ -139,6 +152,9 @@ function Piano({ synth, setSynth }: InstrumentProps): JSX.Element {
     'amtriangle',
   ]) as List<OscillatorType>;
 
+
+  
+
   return (
     <div className="pv4">
       <div className="relative dib h4 w-100 ml4">
@@ -146,6 +162,7 @@ function Piano({ synth, setSynth }: InstrumentProps): JSX.Element {
           keys.map(key => {
             const isMinor = key.note.indexOf('b') !== -1;
             const note = `${key.note}${octave}`;
+           
             return (
               <PianoKey
                 key={note} //react key
@@ -156,9 +173,13 @@ function Piano({ synth, setSynth }: InstrumentProps): JSX.Element {
                 index={(octave - 2) * 7 + key.idx}
               />
             );
+
+
           }),
         )}
       </div>
+
+
       <div className={'pl4 pt4 flex'}>
         {oscillators.map(o => (
           <PianoType
@@ -169,6 +190,8 @@ function Piano({ synth, setSynth }: InstrumentProps): JSX.Element {
           />
         ))}
       </div>
+
+      
     </div>
   );
 }
