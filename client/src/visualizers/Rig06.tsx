@@ -6,9 +6,6 @@ import * as Tone from 'tone'; // Waveform
 import { Visualizer } from '../Visualizers';
 // Global vars
 var amplitude: number;
-const WIDTH = window.innerWidth;
-const HEIGHT = window.innerHeight;
-//const particles: Particle [] = [];
 
 // Initial Position of glowing right circle O O
 const INI_CIRCLE_POS_Y = 130;
@@ -32,9 +29,6 @@ export const MiniTron = new Visualizer(
     const cir_02 = new CircleWave(p5,  analyzer, InitRadius - 120, [255, 8, 0]   , 0.5); 
     cir_02.darwEffect(0, 0);
   }
-
- 
-
   const cir_02 = new CircleWave(p5,  analyzer, InitRadius, [0, 0, 0] , CIRC_WEIGHT);
   cir_02.darwEffect(-300, 0);
   if(amplitude !== 0){
@@ -47,11 +41,6 @@ export const MiniTron = new Visualizer(
 
   const rect_top = new DrawRec(p5, 0, -600, -540); // red rec center
   rect_top.drawRect(1500, 200, 0);
-
-  
-
-  //const rect_center = new DrawRec(p5, 0, 0, 0);// left
-  //rect_center.drawRect(WIDTH - 1440, HEIGHT - 500, 0)
 
  const rect_left = new DrawRec(p5, -17, 1100, 300);// right
  rect_left.drawRect(700, 600, 0)
@@ -141,8 +130,6 @@ class WaveBars{
         var color = randomColor();
         this.p5.fill(color[0], color[1], color[2]);
       }
-
-
       this.p5.rect(
         0,
         0,
@@ -151,8 +138,6 @@ class WaveBars{
          25
       );
     }
-
-
   }
 
 class CircleWave{
@@ -194,110 +179,7 @@ class CircleWave{
   this.p5.endShape();
 }
 }
-
 //==================================================================
-// Class particle
-class Particle {
-   pos: p5.Vector;
-   vel: p5.Vector;
-   acc: p5.Vector;
-   w: number;
-   color: number [];
-   p5: p5;
-  
-  constructor(p5: p5, color: number []){
-    this.color = color;
-    this.p5 = p5;
-     var r = p5.map(amplitude, -1, 1, 40, 150)
-     var angle = p5.random(0, 180)
-     var x = r * Math.sin(angle);
-     var y = r * Math.cos(angle)
-    this.pos = p5.createVector(x , y)
-    this.vel = p5.createVector(-.4, .1);
-    this.acc = this.pos.copy().mult(p5.random(0.0000200, 0.0000300))
-    this.w = p5.random(3, 5)*amplitude*10;
-   // this.color = randomColor();
-  
-   }
-   update(cond: number): void{
-     this.vel.add(this.acc);
-     this.pos.add(this.vel );
-     if(cond){
-       this.pos.add(this.vel);
-       this.pos.add(this.vel);
-
-       this.pos.add(this.vel);
-
-       
-     }
-   }
-   edges(width: number, height: number): boolean{
-     if(this.pos.x < -width / 2 || this.pos.x > width / 2
-       || this.pos.y < -height / 2 || this.pos.y > height / 2){
-         return true;
-     } else {
-       return false;
-     }
-   }
-  show(): void{
-    this.p5.translate(500,0)
-   this.p5.noStroke()
-   this.p5.fill(this.color[0],
-     this.color[1],
-     this.color[2])
-   var x = this.pos.x;
-   var y = this.pos.y;
-  this.p5.ellipse(x, y, this.w);
-   this.p5.ellipse(-x, y, this.w);
-   this.p5.ellipse(x, -y, this.w);
-   this.p5.ellipse(-x, -y, this.w);
-  }
-}
-
-
-
-
-//==================================================================
-// Class FlowField
-class FlowField {
-    multi: number;
-    p5: p5;
-    points: P5.Vector [];
-	  density: number;
-	  space: number;
-  	constructor(p5: P5) {
-    this.multi = 0.0005;
-    this.p5 = p5;
-    this.points = [];
-    this.density = 20;
-    this.space = WIDTH / this.density;
-	}
-
-  setUpAndDraw(): void{
-    this.p5.translate(-150,20);
-    this.p5.shearY(2)
-    for(var x = 0; x < WIDTH/2; x += this.space){
-      for(var y = 0; y < HEIGHT; y += this.space){
-        var p = this.p5.createVector(x + this.p5.random(-10, 10),
-        y + this.p5.random(-10, 10));
-        this.points.push(p);
-      }
-    }
-    this.draw();
-  }
-
-	draw(): void{
-    this.p5.noStroke();
-    this.p5.fill(0);
-    for (var i = 0; i < this.points.length; i++) {      
-      var angle = this.p5.map(this.p5.noise(this.points[i].x * this.multi,
-      this.points[i].y* this.multi),0, 1, 0, 10);
-      this.points[i].add(this.p5.createVector(this.p5.cos(angle), this.p5.sin(angle)));
-      this.p5.ellipse(this.points[i].x, this.points[i].y, 35 * amplitude); //5* amplitude
-    }
-    this.points.splice(0,this.points.length)
-	}
-}
 function randomColor(): number [] {
   return [Math.floor(Math.random()*250) + 150,
      Math.floor(Math.random()*250) + 150,
