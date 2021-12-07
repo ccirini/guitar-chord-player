@@ -1,7 +1,7 @@
 // 3rd party library imports
 import * as Tone from 'tone';
 import Mp3Player from "../components/AudioPlayer";
-import '../css/AudioPlayer.css'
+import '../components/AudioPlayer.css'
 
 // project imports
 import { Instrument, InstrumentProps } from '../Instruments';

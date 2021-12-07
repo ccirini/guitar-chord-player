@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import AudioControls from "./AudioControls";
 import { Songs } from './Songs';
-import "../css/AudioPlayer.css";
+import "./AudioPlayer.css";
 
 const AudioPlayer = () => {
   // State

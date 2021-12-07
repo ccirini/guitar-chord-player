@@ -5,7 +5,8 @@ import { List, Range } from 'immutable';
 // project imports
 import { Instrument, InstrumentProps } from '../Instruments';
 import { useState, useEffect } from 'react';
-import '../css/Trumpet.css';
+import '../components/Trumpet.css';
+import { url } from 'inspector';
 
 /** ------------------------------------------------------------------------ **
  * Contains implementation of components for Trumpet.
@@ -29,23 +30,31 @@ import '../css/Trumpet.css';
 
 interface TrumpetProps {
     partial: number; // Bb3, F4, Bb4, D5, F5, Bb5
-    sampler?: Tone.Sampler;
+    sampler?: Tone.Synth;
     valvesPressed?: Array<{valvePressed: boolean, noteOffset: number}>;
     //muted?: string; TODO
 }
 
-const trumpetSampler = new Tone.Sampler({
-    urls: {
-        "Bb3": "trumpet_bflat3.wav",
-        "F4": "trumpet_f4.wav",
-        "Bb4": "trumpet_bflat4.wav",
-        "D5": "trumpet_d5.wav",
-        "F5": "trumpet_f5.wav",
-        "Bb5": "trumpet_bflat5.wav",
+const trumpetSampler = new Tone.FMSynth().toDestination();
+/* new Tone.Synth({
+    /urls: {
+        Bb3: "../sounds/trumpet/trumpet_bflat3.wav",
+        F4: "../sounds/trumpet/trumpet_f4.wav",
+        Bb4: "../sounds/trumpet/trumpet_bflat4.wav",
+        D5: "../sounds/trumpet/trumpet_d5.wav",
+        F5: "../sounds/trumpet/trumpet_f5.wav",
+        Bb5: "../sounds/trumpet/trumpet_bflat5.wav",
     },
-    release: 1,
-    baseUrl: "../sounds/trumpet/",
-}).toDestination();
+    release: 1
+}).toDestination(); */
+
+trumpetSampler.set({
+	envelope: {
+		attack: 0.01,
+        sustain: .5,
+	},
+    volume: 5,
+});
 
 export function TrumpetPartial(props: { partialKey: string }) {
     const [partialPressed, setPartialPressed] = useState(false);
@@ -97,7 +106,7 @@ export function TrumpetValve(props: { valveKey: string }) {
 
     const Button = ({}: any): JSX.Element => {
         return <button className="valve-button">
-            <div className='key-kbd'><kbd>{props.valveKey}</kbd></div>
+            <div className='key-kbd-trumpet'><kbd>{props.valveKey}</kbd></div>
         </button>;
     };
 
@@ -114,7 +123,7 @@ export function TrumpetBody(props:
         valvesPressed?: Array<{valvePressed: boolean, noteOffset: number}>
     }): JSX.Element {
     const resolveNote = () => {
-        return 'Bb3';
+        const resolvedNote = Math.floor(Math.random() * (30 - 0) + 0);
         /* let sumValvesPressed = 0;
         if (props.valvesPressed) {
             for (let i = 0; i < props.valvesPressed.length; i++) {
@@ -122,7 +131,7 @@ export function TrumpetBody(props:
             }
         } */
         
-        /* const resolvedNote = props.partial - sumValvesPressed;
+        // const resolvedNote = props.partial - sumValvesPressed;
         //console.log(resolvedNote);
         
         if (resolvedNote === 0) {
@@ -138,7 +147,6 @@ export function TrumpetBody(props:
         } else if (resolvedNote === 5) {
             return 'A3';
         } else if (resolvedNote === 6) {
-            console.log('Returning Bb3...');
             return 'Bb3';
         } else if (resolvedNote === 7) {
             return 'B3';
@@ -190,10 +198,10 @@ export function TrumpetBody(props:
             return 'Bb5';
         } else {
             return 'Bb3';
-        } */
+        }
     }
 
-    useEffect(() => {
+    /* useEffect(() => {
         document.addEventListener("keydown", (e) => {
             if (e.key.toLowerCase() === "e" && !e.repeat) {
                 console.log('You pressed e!');
@@ -206,10 +214,14 @@ export function TrumpetBody(props:
                 trumpetSampler.triggerAttackRelease('Bb3', 4);
             }
         });
-    });
+    }); */
+
+    const onclick = () => {
+        trumpetSampler.triggerAttackRelease(resolveNote(), 1);
+    }
 
     const Button = ({}: any): JSX.Element => {
-        return <button id='trumpet-body'>
+        return <button id='trumpet-body' onClick={onclick} >
         </button>;
     };
 
