@@ -135,7 +135,7 @@ export function SideNav({ state, dispatch }: SideNavProps): JSX.Element {
     <div className="absolute top-0 left-0 bottom-0 w5 z-1 shadow-1 bg-pink flex flex-column" id="side-panel">
       
       <div className="h3 fw7 f5 flex items-center pl3 bb b--light-gray">
-        Nameless App
+        DogPack Music App
       </div>
       <div className="flex-auto">
         <Instruments state={state} dispatch={dispatch} />

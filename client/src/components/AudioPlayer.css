@@ -1,26 +1,26 @@
 :root {
     --white: #fff;
     --active-color: #afffff;
-  }
-  
-  * {
+}
+
+* {
     box-sizing: border-box;
-  }
-  
-  html {
+}
+
+html {
     font-family: Arial, Helvetica, sans-serif;
     height: 100%;
     background: var(--active-color);
     transition: background 0.4s ease;
-  }
-  
-  button {
+}
+
+button {
     background: none;
     border: none;
     cursor: pointer;
-  }
-  
-  input[type="range"] {
+}
+
+input[type="range"] {
     height: .11rem;
     -webkit-appearance: none;
     width: 100%;
@@ -42,9 +42,8 @@
     
   }
 
-  .audio-player {
+.audio-player {
     background-image: linear-gradient(to top, #48c6ef 0%, #6f86d6 100%);
-
     width: 50%;
     height: 100%;
     border-radius: 1rem;
@@ -52,12 +51,10 @@
     box-shadow: -.5px 2px 0 2px rgb(127, 197, 209);
     margin: auto;
     color: var(--white);
-   
-
-  }
+}
 
 /*    border: .09rem solid #c6d4da;*/
- .artwork {
+.artwork {
     display: block;
     margin: auto;
     height: 150px;
@@ -65,53 +62,51 @@
     background-color: black;
     opacity: 0.78;
     box-shadow: 0 -5px 4px -3px black, 0 5px 4px -3px black;
-  }
-  
-  .track-info {
+}
+
+.track-info {
     text-align: center;
     z-index: 1;
     position: relative;
-  }
-  
-  .title {
+}
+
+.title {
     font-weight: 700;
     margin-bottom: 0;
-  }
-  
-  .artist {
+}
+
+.artist {
     font-weight: 300;
     margin-top: 0;
-  }
-  
-  .audio-controls {
+}
+
+.audio-controls {
     display: flex;
     justify-content: space-between;
     width: 75%;
     margin: 0 auto 2px;
     padding: 0.11rem 5.5rem  0.11rem 5.5rem;
-    border-radius: .5rem; 
+    border-radius: .5rem;
+}
 
-  }
-  .line-breaker{
+.line-breaker{
     border: none;
     height: 0.01rem;
     background-color:#2af1ff; /* Modern Browsers */
-  }
+}
 
-
-  .audio-controls .prev svg,
-  .audio-controls .next svg {
+.audio-controls .prev svg,
+.audio-controls .next svg {
     width: 20px;
     height: 20px;
-  }
-  
-  .audio-controls .play svg,
-  .audio-controls .pause svg {
+}
+
+.audio-controls .play svg,
+.audio-controls .pause svg {
     height: 25px;
     width: 25px;
-  }
-  
-  .audio-controls path {
+}
+
+.audio-controls path {
     fill: var(--active-color);
-  }
-  
+}

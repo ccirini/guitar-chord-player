@@ -1,0 +1,63 @@
+/* http://www.pngall.com/wp-content/uploads/4/Gold-Trumpet-PNG-Images.png */
+
+.trumpetContainer {
+    position: absolute;
+    top: 25%;
+    left: 25%;
+}
+
+#trumpet, #trumpet-body, .trumpetBody {
+    background-image: url('../img/trumpet.png');
+    background-size: 300px;
+    height: 100px;
+    width: 300px;
+}
+
+.valves {
+    position: absolute;
+    top: 10%;
+    padding-left: 6.4rem;
+    display: inline-flex;
+}
+
+.valves > .valve_down {
+    margin-top: 20%;
+}
+
+.valve_down {
+    background-image: url("../img/trumpetValve_down.png");
+    background-size: 20px;
+    height: 8px;
+    width: 15px;
+    position: relative;
+    top: 38%;
+}
+
+.valve_up {
+    background-image: url("../img/trumpetValve_up.png");
+    background-size: 20px;
+    height: 15px;
+    width: 15px;
+}
+
+input[type='radio'] {
+    margin: 18px;
+}
+
+.partialSelector {
+    display: inline-flex;
+}
+
+.partialKey {
+    display: inline;
+    position: absolute;
+    margin-top: 12px;
+    color:rgb(248, 53, 53);
+}
+
+.key-kbd-trumpet > kbd {
+    font-size: 1.3rem;
+    color: rgb(248, 53, 53);
+    position: absolute;
+    bottom: 100%;
+}

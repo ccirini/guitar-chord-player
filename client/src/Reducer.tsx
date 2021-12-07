@@ -48,7 +48,7 @@ export class DispatchAction {
 export function appReducer(state: AppState, action: DispatchAction): AppState {
   const { type, args } = action;
 
-  console.debug(`${type}`);
+  //console.debug(`${type}`);
 
   // Question: Does this function remind of you registering callbacks?
   const newState = (() => {
@@ -101,7 +101,7 @@ export function appReducer(state: AppState, action: DispatchAction): AppState {
     }
   })();
 
-  console.debug(newState.update('socket', s => (s ? '[socket]' : s)).toJS());
+  //console.debug(newState.update('socket', s => (s ? '[socket]' : s)).toJS());
 
   return newState;
 }
