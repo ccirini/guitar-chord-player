@@ -3,6 +3,8 @@ import classNames from 'classnames';
 import { List } from 'immutable';
 import React from 'react';
 import { useLocation, Link } from 'react-router-dom';
+import './index.css'
+
 import {
   RadioButton20,
   RadioButtonChecked20,
@@ -27,7 +29,7 @@ interface SideNavProps {
 
 const Section: React.FC<{ title: string }> = ({ title, children }) => {
   return (
-    <div className="flex flex-column h-25 bb b--light-gray pa3">
+    <div className="flex flex-column h-25 bb b--light-black pa3">
       <div className="fw7 mb2">{title} </div>
       <div className="flex-auto overflow-scroll">{children}</div>
     </div>
@@ -130,7 +132,8 @@ function Songs({ state, dispatch }: SideNavProps): JSX.Element {
 
 export function SideNav({ state, dispatch }: SideNavProps): JSX.Element {
   return (
-    <div className="absolute top-0 left-0 bottom-0 w5 z-1 shadow-1 bg-white flex flex-column">
+    <div className="absolute top-0 left-0 bottom-0 w5 z-1 shadow-1 bg-pink flex flex-column" id="side-panel">
+      
       <div className="h3 fw7 f5 flex items-center pl3 bb b--light-gray">
         DogPack Music App
       </div>

@@ -29,21 +29,25 @@ input[type="range"] {
     transition: background 0.2s ease;
     cursor: pointer;
     margin-top: -5px;
-}
-
-.mp3-player {
-    background: rgb(63,94,251);
-    background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
-    padding-bottom: .8rem;
-    padding-top: .2rem;
-}
+  }
+  
+  .mp3-player {
+    background: linear-gradient(180deg, #FC466B 0%, #3F5EFB 100%);
+    
+    
+    
+    
+    padding-bottom: 1.5rem;
+    padding-top: 1rem;
+    
+  }
 
 .audio-player {
     background-image: linear-gradient(to top, #48c6ef 0%, #6f86d6 100%);
     width: 50%;
     height: 100%;
     border-radius: 1rem;
-    padding: .9rem;
+    padding: 1rem;
     box-shadow: -.5px 2px 0 2px rgb(127, 197, 209);
     margin: auto;
     color: var(--white);
@@ -53,7 +57,7 @@ input[type="range"] {
 .artwork {
     display: block;
     margin: auto;
-    height: 135px;
+    height: 150px;
     width: 215px;
     background-color: black;
     opacity: 0.78;

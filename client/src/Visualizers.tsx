@@ -2,7 +2,8 @@
 import * as Tone from 'tone';
 import Sketch from 'react-p5';
 import P5 from 'p5';
-import { useEffect, useMemo, useCallback } from 'react';
+import './index.css'
+import React, { useEffect, useMemo, useCallback } from 'react';
 
 type VisualizerDrawer = (p5: P5, analyzer: Tone.Analyser) => void;
 
@@ -45,12 +46,12 @@ export function VisualizerContainer({ visualizer }: VisualizerContainerProps) {
 
   const setup = (p5: P5, canvasParentRef: Element) => {
     const width = window.innerWidth;
-    const height = window.innerHeight / 2;
+    const height = (window.innerHeight / 2);
     p5.createCanvas(width, height).parent(canvasParentRef);
   };
 
   return (
-    <div className={'bg-black absolute bottom-0 right-0 left-0 h-50'}>
+    <div className={'bg-black absolute bottom-0 right-0 left-0 h-50'} id="visualizer-canvas">
       <div className={'z-1 absolute left-0 top-0 pa4 white f5'}>{name}</div>
       <Sketch
         setup={setup}

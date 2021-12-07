@@ -93,6 +93,7 @@ function fretMarker(numberOfFrets: number){
     <div className='inline-flex pt3'>
     <text style={{
         paddingRight: 10,
+        paddingTop: '2rem',
         fontSize: 12,
     }}>Mute</text>
     <text style={{
