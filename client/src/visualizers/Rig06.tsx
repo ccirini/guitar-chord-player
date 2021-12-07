@@ -125,7 +125,7 @@ class WaveBars{
       this.p5.shearX(this.shear)
 
       if(amplitude === 0){
-      this.p5.fill(248, 53, 53);
+        this.p5.fill(5, 28, 34);
       } else {
         var color = randomColor();
         this.p5.fill(color[0], color[1], color[2]);
