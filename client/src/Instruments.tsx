@@ -33,7 +33,7 @@ function TopNav({ name }: { name: string }) {
   return (
     <div
       className={
-        'w-100 h3 bb b--light-grey flex justify-between items-center ph4'
+        'w-100 h2 bb b--light-purple flex justify-between items-center ph5'
       }
     >
       <div><h3>{name}</h3></div>

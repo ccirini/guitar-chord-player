@@ -44,7 +44,7 @@ export function PianoKey({
       })}
       style={{
         // CSS
-        top: 0,
+        top: `3rem`,
         left: `${index * 2}rem`,
         zIndex: minor ? 1 : 0,
         width: minor ? '1.5rem' : '2rem',
@@ -91,7 +91,7 @@ function PianoType({ title, onClick, active }: any): JSX.Element {
     <div
       onClick={onClick}
       className={classNames('dim pointer ph2 pv1 ba mr2 br1 fw7 bw1', {
-        'b--black purple': active,
+        'b--black black': active,
         'gray b--light-black': !active,
       })}
     >
@@ -116,18 +116,6 @@ function Piano({ synth, setSynth }: InstrumentProps): JSX.Element {
     { note: 'B', idx: 6 },
   ]);
 
-
-  const drumSound = List([
-    { note: require("../sounds/boom.wav").default},
-    { note: require("../sounds/clap.wav").default},
-    { note: require("../sounds/hihat.wav").default},
-    { note: require("../sounds/kick.wav").default},
-    { note: require("../sounds/openhat.wav").default },
-    { note: require("../sounds/ride.wav").default},
-    { note: require("../sounds/snare.wav").default },
-    { note: require("../sounds/tom.wav").default},
-
-  ]);
 
   const setOscillator = (newType: Tone.ToneOscillatorType) => {
     setSynth(oldSynth => {
