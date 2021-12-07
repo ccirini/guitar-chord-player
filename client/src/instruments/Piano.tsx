@@ -116,19 +116,6 @@ function Piano({ synth, setSynth }: InstrumentProps): JSX.Element {
     { note: 'B', idx: 6 },
   ]);
 
-
-  const drumSound = List([
-    { note: require("../sounds/boom.wav").default},
-    { note: require("../sounds/clap.wav").default},
-    { note: require("../sounds/hihat.wav").default},
-    { note: require("../sounds/kick.wav").default},
-    { note: require("../sounds/openhat.wav").default },
-    { note: require("../sounds/ride.wav").default},
-    { note: require("../sounds/snare.wav").default },
-    { note: require("../sounds/tom.wav").default},
-
-  ]);
-
   const setOscillator = (newType: Tone.ToneOscillatorType) => {
     setSynth(oldSynth => {
       oldSynth.disconnect();
@@ -152,9 +139,6 @@ function Piano({ synth, setSynth }: InstrumentProps): JSX.Element {
     'amtriangle',
   ]) as List<OscillatorType>;
 
-
-  
-
   return (
     <div className="pv4">
       <div className="relative dib h4 w-100 ml4">
@@ -173,12 +157,9 @@ function Piano({ synth, setSynth }: InstrumentProps): JSX.Element {
                 index={(octave - 2) * 7 + key.idx}
               />
             );
-
-
           }),
         )}
       </div>
-
 
       <div className={'pl4 pt4 flex'}>
         {oscillators.map(o => (
@@ -190,8 +171,6 @@ function Piano({ synth, setSynth }: InstrumentProps): JSX.Element {
           />
         ))}
       </div>
-
-      
     </div>
   );
 }

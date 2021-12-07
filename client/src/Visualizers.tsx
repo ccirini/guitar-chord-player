@@ -2,7 +2,7 @@
 import * as Tone from 'tone';
 import Sketch from 'react-p5';
 import P5 from 'p5';
-import React, { useEffect, useMemo, useCallback } from 'react';
+import { useEffect, useMemo, useCallback } from 'react';
 
 type VisualizerDrawer = (p5: P5, analyzer: Tone.Analyser) => void;
 

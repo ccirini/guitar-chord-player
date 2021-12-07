@@ -1,6 +1,6 @@
 import {useEffect, useState } from "react";
 import * as Tone from 'tone';
-import './Drum.css'
+import '../css/Drum.css'
 
 function Drum(props: { sound: string; letter: string; img: string}) {
 	    const [playing, setPlaying] = useState(false);

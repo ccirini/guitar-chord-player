@@ -2,7 +2,7 @@
 import * as Tone from 'tone';
 import React, {useState} from 'react';
 import Drum from "../components/Drum";
-import '../components/Drum.css'
+import '../css/Drum.css'
 // project imports
 import { Instrument, InstrumentProps } from '../Instruments';
 interface DrumKeyProps {

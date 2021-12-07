@@ -100,7 +100,7 @@ export function MainPage({ state, dispatch }: PanelProps): JSX.Element {
 
   const location = useLocation();
   const isWelcome = !state.get('instrument');
-  console.log('INSTRUMENT', isWelcome);
+  //console.log('INSTRUMENT', isWelcome);
 
   useEffect(() => {
     dispatch(new DispatchAction('SET_LOCATION', { location }));

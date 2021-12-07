@@ -1,4 +1,3 @@
-import React from "react";
 import { ReactComponent as Play } from "../Assets/play.svg";
 import { ReactComponent as Pause } from "../Assets/pause.svg";
 import { ReactComponent as Next } from "../Assets/next.svg";

@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import AudioControls from "./AudioControls";
 import { Songs } from './Songs';
-import "./AudioPlayer.css";
+import "../css/AudioPlayer.css";
 
 const AudioPlayer = () => {
   // State
@@ -143,4 +143,5 @@ const AudioPlayer = () => {
     </div>
   );
 };
+
 export default AudioPlayer;
