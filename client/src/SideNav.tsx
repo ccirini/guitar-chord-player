@@ -108,8 +108,6 @@ function Songs({ state, dispatch }: SideNavProps): JSX.Element {
   const songs: List<any> = state.get('songs', List());
   return (
     <Section title="Playlist">
-      <button>Show All</button>
-      <button>By Artist</button>
       {songs.map(song => (
         <div
           key={song.get('id')}
@@ -120,8 +118,7 @@ function Songs({ state, dispatch }: SideNavProps): JSX.Element {
         >
           <Music20 className="mr1" />
           <div>
-          <text className='b'>{song.get('artist')}</text>
-          <text>-</text>
+          <text>{song.get('artist')}</text>
           <text>{song.get('songTitle')}</text>
           </div>
         </div>
